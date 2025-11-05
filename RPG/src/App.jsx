@@ -1,12 +1,17 @@
-import { useState } from 'react'
 import './App.css'
+import { useNavigate } from 'react-router-dom';
 
-  function App() {
+function App() {
+  const navigate = useNavigate
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Welcome to RPG!</h1>
-      <p>Recommeds Personalized Games! </p>
-      <button onClick={() => alert("Hello!")}>Click Me</button>
+    <div>
+      <header>
+        <h1>Welcome to RPG</h1>
+        <p>Recommends Personalized Games!</p>
+        <button onClick={() => navigate('/search')}>
+          Begin Searching for Games!
+        </button>
+      </header>
     </div>
   );
 }
