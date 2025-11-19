@@ -1,18 +1,18 @@
-import './App.css'
 import { useNavigate } from 'react-router-dom';
-
-function App() {
+function results() {
   const navigate = useNavigate();
   return (
     <div>
       <header>
-        <h1>Welcome to RPG</h1>
-        <p>Recommends Personalized Games!</p>
+        <h1>Results of your Search</h1>
+        <button onClick={() => navigate('/')}>
+          Back to Main Page
+        </button>
         <button onClick={() => navigate('/search')}>
-          Begin Searching for Games!
+          Search Again
         </button>
       </header>
     </div>
   );
 }
-export default App
+export default results
