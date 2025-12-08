@@ -11,6 +11,9 @@ function App() {
         <button onClick={() => navigate('/search')}>
           Begin Searching for Games!
         </button>
+        <button onClick={() => navigate('/login')}>
+          Log In
+        </button>
       </header>
     </div>
   );
