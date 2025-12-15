@@ -8,27 +8,39 @@ on:
     branches:
       - development
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  test:
-    name: Run Tests with Coverage
+  build-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
+      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
-      # TODO: add the system depedencies
+
+      # Install dependencies
+      # TODO: add the system dependencies here 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Vite + React app
+      # Build Vite + React app
+      - name: Build project
         run: npm run build
 
-      - name: Run Jest tests with coverage
-        run: npx jest --coverage
+      - name: Deploy to Github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dir: dist
