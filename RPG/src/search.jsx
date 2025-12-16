@@ -9,7 +9,7 @@ function Search() {
 
     const handleSearch = async() => {
         try {
-            const response = await fetch(`http://localhost:5000/search?q=${searchTerm}`);
+            const response = await fetch(`/api/search?q=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         } catch (error) {
