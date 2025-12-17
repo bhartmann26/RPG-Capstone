@@ -1,11 +1,11 @@
 import express from "express";
-import { pool } from "../db.js";
+import { db } from "../db.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM users");
+    const [rows] = await db.query("SELECT * FROM users");
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });

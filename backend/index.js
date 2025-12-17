@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import { db } from "./db.js";
+import searchRoutes from "./routes/search.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/search", searchRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
@@ -13,17 +16,6 @@ app.get("/api/health", (req, res) => {
 // test cases (implement later to CI possibly??)
 app.get("/api/test-insert", async (req, res) => {
   try {
-    // Insert a sample game
-    const insertQuery = `
-      INSERT INTO Games (game_id, title)
-      VALUES (?, ?)
-    `;
-    const values = [
-      "1",
-      "HOLLOW KNIGHT."
-    ];
-    await db.query(insertQuery, values);
-
     // Fetch all games to verify
     const [rows] = await db.query("SELECT * FROM Games");
     res.json(rows);
