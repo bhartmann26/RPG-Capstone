@@ -21,7 +21,7 @@ USE `mydb` ;
 -- Table `mydb`.`Users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
-  `user_id` BIGINT NOT NULL,
+  `user_id` BIGINT AUTO_INCREMENT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `password` TEXT NOT NULL,
@@ -55,7 +55,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Genres`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Genres` (
-  `genre_id` BIGINT NOT NULL,
+  `genre_id` BIGINT AUTO_INCREMENT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` TEXT NULL,
   PRIMARY KEY (`genre_id`),
@@ -67,7 +67,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Games`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Games` (
-  `game_id` BIGINT NOT NULL,
+  `game_id` BIGINT AUTO_INCREMENT NOT NULL,
   `title` VARCHAR(45) NULL,
   `description` TEXT NULL,
   `release_year` BIGINT NULL,
@@ -89,12 +89,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Recommendations` (
   `score` FLOAT NULL,
   PRIMARY KEY (`user_id`, `game_id`),
   INDEX `game_id_idx` (`game_id` ASC) VISIBLE,
-  CONSTRAINT `user_id`
+  CONSTRAINT `user_idrec`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`Users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-  CONSTRAINT `game_id`
+  CONSTRAINT `game_idrec`
     FOREIGN KEY (`game_id`)
     REFERENCES `mydb`.`Games` (`game_id`)
     ON DELETE CASCADE
@@ -112,12 +112,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`UserLibrary` (
   `saved` TINYINT NULL,
   PRIMARY KEY (`user_id`, `game_id`),
   INDEX `game_id_idx` (`game_id` ASC) VISIBLE,
-  CONSTRAINT `user_id`
+    CONSTRAINT `user_idlib`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`Users` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-  CONSTRAINT `game_id`
+  CONSTRAINT `game_idlib`
     FOREIGN KEY (`game_id`)
     REFERENCES `mydb`.`Games` (`game_id`)
     ON DELETE CASCADE

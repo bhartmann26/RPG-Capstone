@@ -1,18 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function login() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // validation 
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST", //not GET bc sending password + making session
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
-    navigate("/account"); //redirect on submit
-  };
+    const data = await response.json();
+    console.log("Login response:", data);
+
+    if (response.ok) {
+      // account info in storage, so we stay logged in
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/account"); // go to account page
+    } else {
+      alert(data.error || "Login failed");
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+  }
+};
 
   return (
     <div style={styles.container}>

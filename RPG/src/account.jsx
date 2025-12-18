@@ -2,11 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AccountPage() {
     const navigate = useNavigate();
-  // will use real account info
-    const user = {
-        username: "johndoe123",
-        email: "john@example.com",
-    };
+
+    //This is the user info, we get this in login.
+    const user = JSON.parse(localStorage.getItem("user"));
 
     return (
         <div style={styles.container}>
