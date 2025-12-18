@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios"; // or fetch API
 
 export default function Library({ userId }) {
   const [library, setLibrary] = useState([]);
@@ -11,8 +10,10 @@ export default function Library({ userId }) {
     async function fetchLibrary() {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/library/${userId}`);
-        setLibrary(response.data);
+        const response = await fetch(`/api/library/${userId}`);
+        if (!response.ok) throw new Error("Network response was not ok");
+        const data = await response.json();
+        setLibrary(data);
       } catch (err) {
         console.error("Failed to fetch library", err);
         setError("Failed to load your library.");
@@ -27,11 +28,17 @@ export default function Library({ userId }) {
   // Handler to toggle saved/liked (example)
   const toggleLiked = async (gameId, currentLiked) => {
     try {
-      const response = await axios.post("/api/library", {
-        userId,
-        gameId,
-        liked: !currentLiked,
+      const response = await fetch("/api/library", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          gameId,
+          liked: !currentLiked,
+        }),
       });
+
+      if (!response.ok) throw new Error("Network response was not ok");
 
       // Update state locally
       setLibrary((prev) =>
