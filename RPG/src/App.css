@@ -1,0 +1,24 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+  
+}
+
+header {
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  color: chartreuse;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+   padding: 10px 20px;
+   background-color: black;
+   color: chartreuse;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+}
